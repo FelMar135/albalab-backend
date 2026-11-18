@@ -1,0 +1,35 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.5)
+
+2026-11-12T23:45:12.534-03:00  INFO 21400 --- [api-gateway] [           main] c.albalab.gateway.ApiGatewayApplication  : Starting ApiGatewayApplication v0.0.1-SNAPSHOT using Java 24.0.2 with PID 21400 (C:\Users\march\Desktop\editar-backend\albalab-backend\api-gateway\target\api-gateway-0.0.1-SNAPSHOT.jar started by march in C:\Users\march\Desktop\editar-backend\albalab-backend\api-gateway)
+2026-11-12T23:45:12.556-03:00  INFO 21400 --- [api-gateway] [           main] c.albalab.gateway.ApiGatewayApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-11-12T23:45:16.479-03:00  INFO 21400 --- [api-gateway] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=5bec0271-4d42-35f0-9a7b-ac74c4f8ca18
+2026-11-12T23:45:19.706-03:00  INFO 21400 --- [api-gateway] [           main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2026-11-12T23:45:20.115-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
+2026-11-12T23:45:20.115-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
+2026-11-12T23:45:20.116-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
+2026-11-12T23:45:20.116-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
+2026-11-12T23:45:20.116-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
+2026-11-12T23:45:20.117-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
+2026-11-12T23:45:20.117-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
+2026-11-12T23:45:20.117-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
+2026-11-12T23:45:20.117-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
+2026-11-12T23:45:20.117-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
+2026-11-12T23:45:20.118-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
+2026-11-12T23:45:20.118-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Version]
+2026-11-12T23:45:20.119-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2026-11-12T23:45:20.119-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
+2026-11-12T23:45:20.119-03:00  INFO 21400 --- [api-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2026-11-12T23:45:21.358-03:00  INFO 21400 --- [api-gateway] [           main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2026-11-12T23:45:21.451-03:00  INFO 21400 --- [api-gateway] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+2026-11-12T23:45:22.360-03:00  INFO 21400 --- [api-gateway] [           main] o.s.boot.reactor.netty.NettyWebServer    : Netty started on port 9090 (http)
+2026-11-12T23:45:23.379-03:00  INFO 21400 --- [api-gateway] [           main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2026-11-12T23:45:24.385-03:00  INFO 21400 --- [api-gateway] [           main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2026-11-12T23:45:24.447-03:00  INFO 21400 --- [api-gateway] [           main] c.albalab.gateway.ApiGatewayApplication  : Started ApiGatewayApplication in 14.934 seconds (process running for 16.475)

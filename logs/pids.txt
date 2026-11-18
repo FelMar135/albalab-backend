@@ -1,0 +1,5 @@
+usuario-service=11040
+admin-service=22948
+colaborador-service=20012
+webpay-service=7304
+api-gateway=18748
