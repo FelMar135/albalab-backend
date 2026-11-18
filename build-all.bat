@@ -10,6 +10,9 @@ if errorlevel 1 exit /b 1
 call :build colaborador-service
 if errorlevel 1 exit /b 1
 
+call :build product-service
+if errorlevel 1 exit /b 1
+
 call :build webpay-service
 if errorlevel 1 exit /b 1
 

@@ -12,6 +12,7 @@ cada uno con su propio `pom.xml`, su base de datos y su wrapper de Maven.
 | `usuario-service` | 9091 | `albalab_usuarios` | Registro, login y gestion de usuarios |
 | `admin-service` | 9092 | `albalab_admin` | Administradores con correo y contrasena BCrypt |
 | `colaborador-service` | 9093 | `albalab_colaboradores` | CRUD de colaboradores |
+| `product-service` | 9095 | `albalab_productos` | CRUD de productos |
 | `webpay-service` | 9094 | `albalab_webpay` | Webpay Plus (crear, confirmar, estado y reembolso) |
 
 Las bases de datos se crean automaticamente con
@@ -128,6 +129,7 @@ http://localhost:9090/actuator/health
 | `USUARIO_SERVICE_URI` | `http://localhost:9091` | Ruta del gateway al servicio |
 | `ADMIN_SERVICE_URI` | `http://localhost:9092` | Ruta del gateway al servicio |
 | `COLABORADOR_SERVICE_URI` | `http://localhost:9093` | Ruta del gateway al servicio |
+| `PRODUCT_SERVICE_URI` | `http://localhost:9095` | Ruta del gateway al servicio |
 | `WEBPAY_SERVICE_URI` | `http://localhost:9094` | Ruta del gateway al servicio |
 
 Los servicios se comunican entre si por `localhost` usando los puertos por

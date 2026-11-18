@@ -4,6 +4,7 @@ setlocal
 call :clean usuario-service
 call :clean admin-service
 call :clean colaborador-service
+call :clean product-service
 call :clean webpay-service
 call :clean api-gateway
 
