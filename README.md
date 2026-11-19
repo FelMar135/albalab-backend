@@ -11,7 +11,7 @@ cada uno con su propio `pom.xml`, su base de datos y su wrapper de Maven.
 | `api-gateway` | 9090 | - | Punto de entrada unico, validacion JWT y enrutamiento |
 | `usuario-service` | 9091 | `albalab_usuarios` | Registro, login y gestion de usuarios |
 | `admin-service` | 9092 | `albalab_admin` | Administradores con correo y contrasena BCrypt |
-| `colaborador-service` | 9093 | `albalab_colaboradores` | CRUD de colaboradores |
+| `colaborador-service` | 9093 | `albalab_colaboradores` | Colaboraciones por usuario y CRUD administrador |
 | `product-service` | 9095 | `albalab_productos` | CRUD de productos |
 | `webpay-service` | 9094 | `albalab_webpay` | Webpay Plus (crear, confirmar, estado y reembolso) |
 
@@ -27,6 +27,7 @@ albalab-backend/
 ├── usuario-service/
 ├── admin-service/
 ├── colaborador-service/
+├── product-service/
 ├── webpay-service/
 ├── configuracion-maven/
 │   ├── settings.xml
@@ -170,6 +171,10 @@ Respuesta:
 }
 ```
 
+El token de usuario incluye el claim `usuarioId` ademas de `sub` (correo),
+`roles` y `scope`. `colaborador-service` usa `usuarioId` y el correo para
+asociar y filtrar las colaboraciones del usuario autenticado.
+
 ### Administrador
 
 El administrador inicial se inserta mediante Liquibase al arrancar
@@ -231,11 +236,17 @@ Todas las rutas se consumen a traves del gateway en `http://localhost:9090`.
 
 | Metodo | Ruta | Acceso |
 | --- | --- | --- |
-| GET | `/api/colaboradores` | Autenticado |
-| GET | `/api/colaboradores/{id}` | Autenticado |
+| GET | `/api/colaboradores` | ADMIN |
+| GET | `/api/colaboradores/admin/todos` | ADMIN |
+| GET | `/api/colaboradores/mios` | Autenticado |
+| GET | `/api/colaboradores/publicos` | Publico |
+| GET | `/api/colaboradores/{id}` | Autenticado (dueno o ADMIN) |
 | POST | `/api/colaboradores` | Autenticado |
-| PUT | `/api/colaboradores/{id}` | Autenticado |
-| DELETE | `/api/colaboradores/{id}` | Autenticado |
+| PUT | `/api/colaboradores/{id}` | ADMIN |
+| DELETE | `/api/colaboradores/{id}` | ADMIN |
+
+El backend obtiene el dueno de la colaboracion desde el JWT. El cliente no debe
+enviar `usuarioId` ni `usuarioEmail` en el cuerpo.
 
 Ejemplo:
 
@@ -243,8 +254,22 @@ Ejemplo:
 curl -X POST http://localhost:9090/api/colaboradores \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"nombre":"Fundacion Albalab","fotoUri":"https://...","montoDonacion":10000}'
+  -d '{
+    "nombre":"Fundacion Albalab",
+    "fotoUri":"https://...",
+    "montoDonacion":10000,
+    "esAnonimo":false,
+    "webpayOrden":"DON-1001"
+  }'
 ```
+
+`webpayOrden` es opcional, pero se recomienda enviarlo para evitar duplicados.
+Si ya existe una colaboracion con esa orden y pertenece al mismo usuario, el
+backend devuelve la existente. Si pertenece a otro usuario, responde `409`.
+
+La lista `mios` devuelve solo las colaboraciones del usuario autenticado. La
+lista `publicos` no requiere token y oculta el nombre, la foto y el monto de las
+colaboraciones anonimas.
 
 ### Webpay
 
@@ -295,8 +320,13 @@ que definir el codigo de comercio, la API key y `WEBPAY_ENVIRONMENT=LIVE`.
 - Los JWT se firman con HMAC-SHA256. La clave se deriva con SHA-256 del valor de
   `JWT_SECRET`, por lo que todos los servicios deben usar exactamente el mismo
   secreto.
-- El gateway valida el token y aplica la regla de rol para `/api/admin/**`.
+- El gateway valida el token y aplica la regla de rol para `/api/admin/**` y
+  `/api/colaboradores/admin/**`.
 - Cada microservicio tambien valida el token: no depende solo del gateway.
+- `/api/colaboradores/mios` filtra por el usuario del JWT. Un usuario no puede
+  leer ni modificar colaboraciones de otro.
+- `/api/colaboradores/publicos` es publico y solo devuelve colaboraciones
+  aprobadas con los datos anonimos protegidos.
 - `/api/webpay/retorno` es publico porque Transbank debe poder invocarlo sin JWT.
 - En produccion cambia `JWT_SECRET`, cambia la contrasena del administrador
   inicial y restringe CORS a los origenes reales de la app.
@@ -365,6 +395,7 @@ Iniciar MySQL/MariaDB en `localhost:3306`. Las bases se crean automaticamente:
 - `albalab_usuarios`
 - `albalab_admin`
 - `albalab_colaboradores`
+- `albalab_productos`
 - `albalab_webpay`
 
 ### 6. Levantar cada microservicio
@@ -437,6 +468,7 @@ Tambien se deben permitir en el firewall los puertos:
 - `9092`
 - `9093`
 - `9094`
+- `9095`
 
 ### 10. Maven especial del proyecto
 
@@ -467,6 +499,7 @@ en `configuracion-maven/settings.xml`. Si tampoco funciona, copiar la carpeta
 | admin-service | 9092 |
 | colaborador-service | 9093 |
 | webpay-service | 9094 |
+| product-service | 9095 |
 
 ### 12. Notas importantes
 

@@ -62,7 +62,11 @@ public class UsuarioService {
             throw new CredencialesInvalidasException("Credenciales incorrectas");
         }
 
-        String token = jwtService.generarToken(usuario.getEmail(), usuario.getRole());
+        String token = jwtService.generarToken(
+                usuario.getId(),
+                usuario.getEmail(),
+                usuario.getRole()
+        );
         return new LoginResponse(
                 "ok",
                 token,

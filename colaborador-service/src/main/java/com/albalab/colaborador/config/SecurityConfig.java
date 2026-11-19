@@ -42,6 +42,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/colaboradores/publicos").permitAll()
+                        .requestMatchers("/api/colaboradores/admin/**").hasAuthority("SCOPE_ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/colaboradores").hasAuthority("SCOPE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/colaboradores/**").hasAuthority("SCOPE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/colaboradores/**").hasAuthority("SCOPE_ADMIN")
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
         return http.build();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +19,24 @@ public class ApiExceptionHandler {
     @ExceptionHandler(RecursoNoEncontradoException.class)
     public ProblemDetail recursoNoEncontrado(RecursoNoEncontradoException ex) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(AccesoDenegadoException.class)
+    public ProblemDetail accesoDenegado(AccesoDenegadoException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+    }
+
+    @ExceptionHandler(ConflictoException.class)
+    public ProblemDetail conflicto(ConflictoException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ProblemDetail datosDuplicados(DataIntegrityViolationException ex) {
+        return ProblemDetail.forStatusAndDetail(
+                HttpStatus.CONFLICT,
+                "La colaboracion ya existe o tiene datos duplicados"
+        );
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

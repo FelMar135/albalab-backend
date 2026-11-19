@@ -23,19 +23,28 @@ public class JwtService {
         this.expirationSeconds = expirationHours * 3600;
     }
 
-    public String generarToken(String email, String role) {
+    public String generarToken(Long usuarioId, String email, String role) {
         Instant ahora = Instant.now();
 
-        JwtClaimsSet claims = JwtClaimsSet.builder()
+        JwtClaimsSet.Builder claimsBuilder = JwtClaimsSet.builder()
                 .issuer("albalab-usuario-service")
                 .subject(email)
                 .issuedAt(ahora)
                 .expiresAt(ahora.plusSeconds(expirationSeconds))
                 .claim("roles", List.of(role))
-                .claim("scope", role)
-                .build();
+                .claim("scope", role);
+
+        if (usuarioId != null) {
+            claimsBuilder.claim("usuarioId", usuarioId);
+        }
+
+        JwtClaimsSet claims = claimsBuilder.build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+
+    public String generarToken(String email, String role) {
+        return generarToken(null, email, role);
     }
 
     public long getExpirationSeconds() {

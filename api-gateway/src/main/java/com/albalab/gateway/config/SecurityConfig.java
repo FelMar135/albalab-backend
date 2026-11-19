@@ -40,7 +40,14 @@ public class SecurityConfig {
                                 "/actuator/health",
                                 "/actuator/health/**"
                         ).permitAll()
+                        .pathMatchers(HttpMethod.GET, "/api/colaboradores/publicos").permitAll()
+                        .pathMatchers(HttpMethod.GET, "/api/productos", "/api/productos/**").permitAll()
                         .pathMatchers("/api/admin/**").hasAuthority("SCOPE_ADMIN")
+                        .pathMatchers("/api/colaboradores/admin/**").hasAuthority("SCOPE_ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/api/colaboradores").hasAuthority("SCOPE_ADMIN")
+                        .pathMatchers(HttpMethod.PUT, "/api/colaboradores/**").hasAuthority("SCOPE_ADMIN")
+                        .pathMatchers(HttpMethod.DELETE, "/api/colaboradores/**").hasAuthority("SCOPE_ADMIN")
+                        .pathMatchers("/api/productos/**").hasAuthority("SCOPE_ADMIN")
                         .anyExchange().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .build();
