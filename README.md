@@ -49,7 +49,7 @@ padre que los una: se pueden abrir, compilar y desplegar por separado.
 ## Requisitos
 
 - JDK 21 o superior.
-- MySQL 8 en `localhost:3306` (o define las variables `DB_*`).
+- MySQL 8 o MariaDB 10.4+ en `localhost:3306` (o define las variables `DB_*`).
 - No es necesario instalar Maven: cada servicio incluye su propio `mvnw`.
 
 ## Maven especial del proyecto de referencia
@@ -103,6 +103,11 @@ cd colaborador-service
 
 ```bat
 cd webpay-service
+.\mvnw.cmd spring-boot:run -s ..\configuracion-maven\settings.xml
+```
+
+```bat
+cd product-service
 .\mvnw.cmd spring-boot:run -s ..\configuracion-maven\settings.xml
 ```
 
@@ -207,6 +212,34 @@ curl -X POST http://localhost:9090/api/admin/auth/login \
 Las rutas `/api/admin/**` requieren un token con rol `ADMIN`. El gateway exige
 `SCOPE_ADMIN` y el propio `admin-service` exige `ROLE_ADMIN` (defensa en
 profundidad).
+
+## Usuarios y datos de prueba
+
+Las siguientes cuentas quedan disponibles para probar el backend:
+
+| Correo | Contrasena | Rol | Colaboraciones iniciales |
+| --- | --- | --- | --- |
+| `admin@albalab.cl` | `Admin1234` | ADMIN | Sin colaboraciones |
+| `felipe@gmai.com` | `hola1234` | USER | 5 |
+| `matias@gmail.com` | `hola1234` | USER | 2 |
+
+> `felipe@gmai.com` esta escrito sin la segunda `l` antes de `.com`, tal como
+> fue solicitado.
+
+Las cuentas `felipe@gmai.com` y `matias@gmail.com` se insertan mediante
+Liquibase en `usuario-service` y sus colaboraciones en `colaborador-service`:
+
+| Usuario | Colaboraciones | Total |
+| --- | --- | ---: |
+| Felipe | 3 de $5.000 + 2 de $2.500 | $20.000 |
+| Matias | 1 de $10.000 + 1 de $4.000 | $14.000 |
+
+Todas las colaboraciones de prueba tienen estado `APROBADA`, son visibles y no
+son anonimas. Para comprobarlas, iniciar sesion con una de las cuentas y
+consultar `GET /api/colaboradores/mios`.
+
+En una base local que ya se haya usado puede existir ademas el usuario
+`prueba.app@albalab.cl` / `Usuario1234`; ese usuario no se crea por Liquibase.
 
 ## Endpoints principales
 
@@ -432,6 +465,11 @@ cd webpay-service
 .\mvnw.cmd spring-boot:run -s ..\configuracion-maven\settings.xml
 ```
 
+```bat
+cd product-service
+.\mvnw.cmd spring-boot:run -s ..\configuracion-maven\settings.xml
+```
+
 ### 7. Verificar el backend
 
 Abrir en el navegador:
@@ -449,7 +487,12 @@ Debe responder:
 ### 8. Credenciales iniciales
 
 - Administrador: `admin@albalab.cl` / `Admin1234`
-- Usuario de prueba: `prueba.app@albalab.cl` / `Usuario1234`
+- Felipe: `felipe@gmai.com` / `hola1234`
+- Matias: `matias@gmail.com` / `hola1234`
+- Usuario local opcional: `prueba.app@albalab.cl` / `Usuario1234` (solo si ya existe en la base)
+
+Las colaboraciones semilla de Felipe y Matias estan detalladas en
+[Usuarios y datos de prueba](#usuarios-y-datos-de-prueba).
 
 ### 9. Conectar la app movil
 
