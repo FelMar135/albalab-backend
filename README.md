@@ -19,6 +19,11 @@ Las bases de datos se crean automaticamente con
 `createDatabaseIfNotExist=true` en el MySQL local configurado con las variables
 `DB_*` (por defecto `localhost:3306`).
 
+`usuario-service`, `admin-service`, `colaborador-service` y `product-service`
+aplican su esquema con Liquibase al arrancar. Esos servicios usan
+`spring.jpa.hibernate.ddl-auto=none`; los cambios de tablas se agregan en sus
+respectivos `src/main/resources/db/changelog/db.changelog-master.sql`.
+
 ## Estructura
 
 ```text

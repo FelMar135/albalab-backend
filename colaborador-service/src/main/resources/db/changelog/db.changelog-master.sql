@@ -26,3 +26,33 @@ CREATE UNIQUE INDEX uk_colaboradores_webpay_orden ON colaboradores (webpay_orden
 --rollback DROP INDEX idx_colaboradores_usuario ON colaboradores;
 --rollback DROP INDEX idx_colaboradores_usuario_email ON colaboradores;
 --rollback DROP INDEX uk_colaboradores_webpay_orden ON colaboradores;
+
+--changeset albalab:colaboradores-4
+INSERT INTO colaboradores (usuario_email, nombre, foto_uri, monto_donacion, es_anonimo, fecha, estado, webpay_orden)
+SELECT 'felipe@gmai.com', 'Felipe', NULL, 5000, FALSE, DATE_SUB(CURRENT_TIMESTAMP(6), INTERVAL 5 DAY), 'APROBADA', 'DON-SEED-FELIPE-5000-1'
+WHERE NOT EXISTS (SELECT 1 FROM colaboradores WHERE webpay_orden = 'DON-SEED-FELIPE-5000-1');
+
+INSERT INTO colaboradores (usuario_email, nombre, foto_uri, monto_donacion, es_anonimo, fecha, estado, webpay_orden)
+SELECT 'felipe@gmai.com', 'Felipe', NULL, 5000, FALSE, DATE_SUB(CURRENT_TIMESTAMP(6), INTERVAL 4 DAY), 'APROBADA', 'DON-SEED-FELIPE-5000-2'
+WHERE NOT EXISTS (SELECT 1 FROM colaboradores WHERE webpay_orden = 'DON-SEED-FELIPE-5000-2');
+
+INSERT INTO colaboradores (usuario_email, nombre, foto_uri, monto_donacion, es_anonimo, fecha, estado, webpay_orden)
+SELECT 'felipe@gmai.com', 'Felipe', NULL, 5000, FALSE, DATE_SUB(CURRENT_TIMESTAMP(6), INTERVAL 3 DAY), 'APROBADA', 'DON-SEED-FELIPE-5000-3'
+WHERE NOT EXISTS (SELECT 1 FROM colaboradores WHERE webpay_orden = 'DON-SEED-FELIPE-5000-3');
+
+INSERT INTO colaboradores (usuario_email, nombre, foto_uri, monto_donacion, es_anonimo, fecha, estado, webpay_orden)
+SELECT 'felipe@gmai.com', 'Felipe', NULL, 2500, FALSE, DATE_SUB(CURRENT_TIMESTAMP(6), INTERVAL 2 DAY), 'APROBADA', 'DON-SEED-FELIPE-2500-1'
+WHERE NOT EXISTS (SELECT 1 FROM colaboradores WHERE webpay_orden = 'DON-SEED-FELIPE-2500-1');
+
+INSERT INTO colaboradores (usuario_email, nombre, foto_uri, monto_donacion, es_anonimo, fecha, estado, webpay_orden)
+SELECT 'felipe@gmai.com', 'Felipe', NULL, 2500, FALSE, DATE_SUB(CURRENT_TIMESTAMP(6), INTERVAL 1 DAY), 'APROBADA', 'DON-SEED-FELIPE-2500-2'
+WHERE NOT EXISTS (SELECT 1 FROM colaboradores WHERE webpay_orden = 'DON-SEED-FELIPE-2500-2');
+
+INSERT INTO colaboradores (usuario_email, nombre, foto_uri, monto_donacion, es_anonimo, fecha, estado, webpay_orden)
+SELECT 'matias@gmail.com', 'Matias', NULL, 10000, FALSE, DATE_SUB(CURRENT_TIMESTAMP(6), INTERVAL 6 DAY), 'APROBADA', 'DON-SEED-MATIAS-10000-1'
+WHERE NOT EXISTS (SELECT 1 FROM colaboradores WHERE webpay_orden = 'DON-SEED-MATIAS-10000-1');
+
+INSERT INTO colaboradores (usuario_email, nombre, foto_uri, monto_donacion, es_anonimo, fecha, estado, webpay_orden)
+SELECT 'matias@gmail.com', 'Matias', NULL, 4000, FALSE, DATE_SUB(CURRENT_TIMESTAMP(6), INTERVAL 2 DAY), 'APROBADA', 'DON-SEED-MATIAS-4000-1'
+WHERE NOT EXISTS (SELECT 1 FROM colaboradores WHERE webpay_orden = 'DON-SEED-MATIAS-4000-1');
+--rollback DELETE FROM colaboradores WHERE webpay_orden LIKE 'DON-SEED-%';
