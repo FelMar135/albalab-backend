@@ -557,3 +557,17 @@ en `configuracion-maven/settings.xml`. Si tampoco funciona, copiar la carpeta
 - Para Webpay real, definir `WEBPAY_COMMERCE_CODE`, `WEBPAY_API_KEY` y
   `WEBPAY_ENVIRONMENT=LIVE`.
 - El administrador inicial solo se inserta si el correo no existe.
+
+
+### 13. Emergencia de puertos ocupados
+
+netstat -ano | findstr "9090" //buscamos el puerto esta ocupado
+taskkill /PID 26208 /F  //matamos el puerto
+
+### 14. tarjeta a ocupar
+
+Número: 3700 0000 0002 032
+CVV: 1234
+Fecha: cualquier fecha futura (ej. 12/30)
+
+11.111.111-1 / 123
