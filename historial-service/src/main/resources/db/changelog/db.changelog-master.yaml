@@ -1,0 +1,36 @@
+﻿databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: albalab
+      changes:
+        - createTable:
+            tableName: compras_v2
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: usuario_email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fecha
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: productos
+                  type: TEXT
+                  constraints:
+                    nullable: false
+

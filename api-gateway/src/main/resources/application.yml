@@ -34,6 +34,11 @@ spring:
               predicates:
                 - Path=/api/webpay/**
 
+            - id: historial-service
+              uri: ${HISTORIAL_SERVICE_URI:http://localhost:9096}
+              predicates:
+                - Path=/api/historial/**
+
 jwt:
   secret: ${JWT_SECRET:esta_es_mi_compleja_clave_secreta}
 

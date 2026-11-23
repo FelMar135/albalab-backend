@@ -620,3 +620,14 @@ CVV: 1234
 Fecha: cualquier fecha futura (ej. 12/30)
 
 11.111.111-1 / 123
+
+### 15. Ejecutar test
+
+.\test-all.bat
+
+cd usuario-service
+cd target\site\jacoco
+python -m http.server 8000
+
+http://localhost:8000
+
