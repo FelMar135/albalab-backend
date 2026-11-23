@@ -40,6 +40,7 @@ albalab-backend/
 ├── actualizar-maven.bat
 ├── build-all.bat
 ├── clean-all.bat
+├── test-all.bat
 └── README.md
 ```
 
@@ -79,6 +80,54 @@ Compilacion de todos:
 ```bat
 build-all.bat
 ```
+
+## Pruebas automatizadas
+
+La suite incluye pruebas de controlador con `@WebMvcTest`, `MockMvc` y servicios
+simulados con `@MockitoBean`, pruebas de validacion y mapeo de DTO con Jakarta
+Validation y AssertJ, y pruebas unitarias de la capa de servicio con Mockito.
+No necesitan MySQL ni tener los servicios levantados.
+
+Ejecutar las pruebas de un solo servicio:
+
+```bat
+cd usuario-service
+.\mvnw.cmd test -s ..\configuracion-maven\settings.xml
+```
+
+Cambia `usuario-service` por `admin-service`, `colaborador-service`,
+`product-service`, `webpay-service` o `api-gateway`.
+
+Ejecutar todas las pruebas:
+
+```bat
+test-all.bat
+```
+
+Tambien se puede ejecutar una clase de prueba especifica:
+
+```bat
+cd usuario-service
+.\mvnw.cmd test -Dtest=UsuarioServiceTest -s ..\configuracion-maven\settings.xml
+```
+
+Cobertura de codigo con JaCoCo:
+
+Cada ejecucion de `test` genera `target/jacoco.exec` y el reporte HTML en
+`target/site/jacoco/index.html`. Para verlo:
+
+```bat
+cd usuario-service
+.\mvnw.cmd test -s ..\configuracion-maven\settings.xml
+start target\site\jacoco\index.html
+```
+
+Con `test-all.bat` se genera un reporte independiente en cada microservicio.
+
+`api-gateway` no tiene controladores, DTO ni capa de servicio; su prueba verifica
+que el contexto de Spring cargue correctamente. En los demas servicios las
+pruebas cubren los endpoints principales, la validacion y el mapeo de DTO, y
+las reglas de negocio de la capa de servicio sin levantar la base de datos.
 
 ## Ejecucion local
 
