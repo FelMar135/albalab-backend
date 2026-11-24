@@ -16,6 +16,9 @@ if errorlevel 1 exit /b 1
 call :build webpay-service
 if errorlevel 1 exit /b 1
 
+call :build historial-service
+if errorlevel 1 exit /b 1
+
 call :build api-gateway
 if errorlevel 1 exit /b 1
 

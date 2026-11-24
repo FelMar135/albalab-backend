@@ -14,6 +14,7 @@ cada uno con su propio `pom.xml`, su base de datos y su wrapper de Maven.
 | `colaborador-service` | 9093 | `albalab_colaboradores` | Colaboraciones por usuario y CRUD administrador |
 | `product-service` | 9095 | `albalab_productos` | CRUD de productos |
 | `webpay-service` | 9094 | `albalab_webpay` | Webpay Plus (crear, confirmar, estado y reembolso) |
+| `historial-service` | 9096 | `albalab_historial` | Historial de compras por usuario autenticado |
 
 Las bases de datos se crean automaticamente con
 `createDatabaseIfNotExist=true` en el MySQL local configurado con las variables
@@ -34,6 +35,7 @@ albalab-backend/
 ├── colaborador-service/
 ├── product-service/
 ├── webpay-service/
+├── historial-service/
 ├── configuracion-maven/
 │   ├── settings.xml
 │   └── maven-wrapper.properties
@@ -96,7 +98,7 @@ cd usuario-service
 ```
 
 Cambia `usuario-service` por `admin-service`, `colaborador-service`,
-`product-service`, `webpay-service` o `api-gateway`.
+`product-service`, `webpay-service`, `historial-service` o `api-gateway`.
 
 Ejecutar todas las pruebas:
 

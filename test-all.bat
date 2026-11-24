@@ -16,6 +16,9 @@ if errorlevel 1 exit /b 1
 call :test webpay-service
 if errorlevel 1 exit /b 1
 
+call :test historial-service
+if errorlevel 1 exit /b 1
+
 call :test api-gateway
 if errorlevel 1 exit /b 1
 
